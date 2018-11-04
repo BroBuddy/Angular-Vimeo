@@ -1,0 +1,70 @@
+<div class="row">
+  <div class="col-xs-12">
+    <ng-container *ngIf="videos.length === 0; else videosFound">
+      <h3>Videos Result</h3>
+      <hr />
+      Es wurden keine Videos gefunden.
+    </ng-container>
+
+    <ng-template #videosFound>
+      <h3>Filter</h3>
+      <hr />
+      <input
+        type="text"
+        [(ngModel)]="filteredTitle" 
+        class="form-control"
+        placeholder="Filter title" />
+      <hr />
+      <input
+        type="range"
+        min="1"
+        max="500"
+        step="10"
+        class="form-control"
+        [disabled]="!filteredTitle"
+        [(ngModel)]="filteredDuration" />
+        {{ filteredDuration }} sec.
+      <hr />
+
+      <div class="card-columns">
+        <div class="card" style="width: 20rem;" *ngFor="let video of videos | filter:filteredTitle:filteredDuration; let i = index">
+          <img class="card-img-top" [src]="video.pictures.sizes[1].link" [alt]="video.name" />
+          <div class="card-block">
+            <h4 class="card-title">{{ video.name }}</h4>
+            <p class="card-text">{{ video.description }}</p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">{{ video.created_time | date }}</li>
+            <li class="list-group-item">{{ video.duration }} sec.</li>
+            <li class="list-group-item">{{ video.width }}x{{ video.height }}</li>
+          </ul>
+          <div class="card-block">
+            <button type="button" class="btn btn-info" (click)="openModal(video)">Open Video</button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    
+    <div class="backdrop" [ngStyle]="{'display':display}"></div>
+  
+    <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':display}">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" aria-label="Close" (click)="onCloseHandled()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h4 class="modal-title">{{ modalTitle }}</h4>
+          </div>
+
+          <div class="modal-body" [innerHTML]="modalBody | safe"></div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" (click)="onCloseHandled()">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

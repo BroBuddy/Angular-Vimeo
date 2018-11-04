@@ -1,0 +1,19 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a [routerLink]="['/']" class="navbar-brand">Vimeo</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li routerLinkActive="active" class="nav-item">
+        <a [routerLink]="['/dashboard']" class="nav-link">Dashboard</a>
+      </li>
+      <li routerLinkActive="active" class="nav-item" *ngIf="databaseService.getSize() > 0">
+        <a [routerLink]="['/videos']" class="nav-link">Videos</a>
+      </li>
+    </ul>
+    
+    <span class="navbar-text">
+      <i class="fa fa-home fa-fw"></i>
+      Matthias
+    </span>
+  </div>
+</nav>

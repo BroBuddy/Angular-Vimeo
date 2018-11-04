@@ -1,0 +1,20 @@
+<h3>Dashboard</h3>
+<hr />
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div class="form-group">
+    <label for="channel">Channel name</label>
+    <input type="text" class="form-control" id="channel" name="channel" [(ngModel)]="channel" required />
+    <small class="form-text text-muted">Please enter channel name.</small>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Fetch Data</button>
+</form>
+<hr/>
+
+<h3>Channels</h3>
+<hr/>
+<ul class="list-group">
+  <button type="button" (click)="setChannel(channel.name)" class="list-group-item list-group-item-action" *ngFor="let channel of channels; let i = index">
+    {{ channel.name }}
+  </button>
+</ul>
